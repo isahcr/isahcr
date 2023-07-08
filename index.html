@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <style>
+      #jogador-da-vez {
+           font-size: 50px
+      }  
+
+      button {
+        width: 200px;
+        height: 200px;
+        font-size: 150px;
+        color: burlywood;
+        background-color: beige;
+      }             
+      
+      table {
+        
+        background-color: beige;
+        margin: 87px auto;
+        
+      }
+
+      #mensagem {
+        color: burlywood;
+      }
+    </style>
+</head>
+<body>
+    <div id="jogador-da-vez">
+        Quantidade de jogadas: <span id="qtd-jogadas">0</span>
+        Jogador da vez: <span id="jogador-da-vez-valor">X</span>  
+        | Mensagem: <span id="mensagem"></span>
+    </div>
+
+    <table id="table">
+        <tr>
+             <td>
+                <button id="indice_1" onclick="jogarNoIndice(1)"></button>
+            </td>
+             <td>
+                <button id="indice_2" onclick="jogarNoIndice(2)"></button>
+            </td>
+             <td>
+                <button id="indice_3" onclick="jogarNoIndice(3)"></button>
+             </td>
+
+        </tr>
+
+        <tr>
+            <td>
+                <button id="indice_4" onclick="jogarNoIndice(4)"></button>
+            </td>
+            <td>
+                <button id="indice_5" onclick="jogarNoIndice(5)"></button>
+            </td>
+            <td>
+                <button id="indice_6" onclick="jogarNoIndice(6)"></button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <button id="indice_7" onclick="jogarNoIndice(7)"></button>
+            </td>
+            <td>
+                <button id="indice_8" onclick="jogarNoIndice(8)"></button>
+            </td>
+            <td>                     
+                <button id="indice_9" onclick="jogarNoIndice(9)"></button>
+            </td>
+        </tr>
+
+    </table>
+
+    <script>
+        let jogadorDaVez = "X"
+        let fimDeJogo = false;
+        let qtdJogadas = 0;
+        const matriz = [
+            "", "", "",
+            "", "", "",
+            "", "", "",
+        ]
+
+        function jogarNoIndice(Indice) {
+            if(fimDeJogo) {
+                return;
+            }
+
+        if(matriz[Indice - 1] !== "") {
+            document.getElementById("mensagem").innerHTML = "Não pode jogar nesse local!"
+            return;
+        }
+
+        else {
+            document.getElementById("mensagem").innerHTML = "";
+        }
+        
+        qtdJogadas++;
+        document.getElementById("qtd-jogadas").innerHTML = qtdJogadas
+        document.getElementById("indice_" + Indice).innerHTML = jogadorDaVez;  
+        matriz[Indice - 1] = jogadorDaVez
+
+        if(validarJogadas()){
+            document.getElementById("mensagem").innerHTML = "O jogador " + jogadorDaVez + " é o vencedor!"
+            fimDeJogo = true;
+            return;
+        }
+        else {
+        if(qtdJogadas >= 9){
+            document.getElementById("mensagem").innerHTML = "Deu Velha!";
+            return;
+        }
+
+        }
+        
+        if(jogadorDaVez == "X") {
+            jogadorDaVez = "O";
+        }
+        else {
+            jogadorDaVez = "X";
+        }
+        {
+        document.getElementById("jogador-da-vez-valor").innerHTML = jogadorDaVez;
+    }
+    function validarJogadas(){
+    let jogo = "";
+
+    
+        
+
+        jogo = matriz[0] + matriz[1] + matriz[2];
+        if(jogo == "XXX" || jogo == "OOO") {
+            return true;
+        }
+
+        jogo = matriz[3] + matriz[4] + matriz[5];
+        if(jogo == "XXX" || jogo == "OOO") {
+            return true;
+        }
+        
+        jogo = matriz[6] + matriz[7] + matriz[8];
+        if(jogo == "XXX" || jogo == "OOO") {
+            return true;
+        }
+        
+        jogo = matriz[0] + matriz[3] + matriz[6];
+        if(jogo == "XXX" || jogo == "OOO") {
+            return true;
+        }
+        
+        jogo = matriz[1] + matriz[4] + matriz[7];
+        if(jogo == "XXX" || jogo == "OOO") {
+            return true;
+        }
+        
+        jogo = matriz[2] + matriz[5] + matriz[8];
+        if(jogo == "XXX" || jogo == "OOO") {
+            return true;
+        }
+        
+        jogo = matriz[0] + matriz[4] + matriz[8];
+        if(jogo == "XXX" || jogo == "OOO") {
+            return true;
+        }
+        
+        jogo = matriz[2] + matriz[4] + matriz[6];
+        if(jogo == "XXX" || jogo == "OOO") {
+            return true;
+        }
+        return false 
+        } 
+    
+    }
+    </script>
+</body>
+</html>
